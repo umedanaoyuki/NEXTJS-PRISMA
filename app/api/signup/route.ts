@@ -5,13 +5,21 @@ export async function POST(request: Request) {
 
   const { username, email, password } = res;
 
-  const user = await prisma.user.create({
-    data: {
-      username,
-      email,
-      password,
-    },
-  });
+  try {
+    const user = await prisma.user.create({
+      data: {
+        username,
+        email,
+        password,
+      },
+    });
 
-  return Response.json({ user });
+    return Response.json({ user });
+  } catch (err) {
+    console.log(err);
+    return Response.json(
+      { error: "ユーザーの作成に失敗しました" },
+      { status: 500 }
+    );
+  }
 }
