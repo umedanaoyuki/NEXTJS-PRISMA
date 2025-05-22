@@ -7,3 +7,8 @@ export const requestPasswpordSchema = z
   })
   .regex(/[a-zA-Z]/, { message: "英字を含めてください" })
   .regex(/[0-9]/, { message: "数字を含めてください" });
+
+export const requestLoginSchema = z.object({
+  email: z.string().min(1, { message: "1文字以上入力してください" }),
+  password: z.string().min(1, { message: "1文字以上入力してください" }),
+});
