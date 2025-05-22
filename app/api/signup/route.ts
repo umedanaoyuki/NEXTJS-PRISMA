@@ -20,6 +20,19 @@ export async function POST(request: Request) {
 
   const { username, email, password } = bodyValidation.data;
 
+  const existingUser = await prisma.user.findFirst({
+    where: {
+      OR: [{ username }, { email }],
+    },
+  });
+
+  if (existingUser != null) {
+    return Response.json(
+      { error: "メールアドレスまたはユーザーはすでに使用されています" },
+      { status: 400 }
+    );
+  }
+
   const passwordValidation = requestPasswpordSchema.safeParse(password);
 
   if (!passwordValidation.success) {
