@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import UserCreateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/UserCreateInputSchema";
 import { requestPasswpordSchema } from "@/schemas/userSchema";
+import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
   const res = await request.json();
@@ -30,12 +31,17 @@ export async function POST(request: Request) {
     );
   }
 
+  const hash = bcrypt.hashSync(passwordValidation.data, 10);
+
   try {
     const user = await prisma.user.create({
+      select: {
+        id: true,
+      },
       data: {
         username,
         email,
-        password: passwordValidation.data,
+        password: hash,
       },
     });
 
