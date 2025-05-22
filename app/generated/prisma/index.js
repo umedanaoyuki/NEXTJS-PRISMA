@@ -155,6 +155,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -163,9 +164,9 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  username  String   @unique @db.VarChar(30)\n  email     String   @unique @db.VarChar(255)\n  password  String\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @default(now()) @updatedAt @map(\"updated_at\")\n\n  @@index([email])\n  @@map(\"users\")\n}\n",
-  "inlineSchemaHash": "c4a9f5e522181ab72dacc1953adecfb2e843a5d242950fbcf3979151f604ea97",
-  "copyEngine": false
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ngenerator zod {\n  provider                         = \"zod-prisma-types\"\n  useMultipleFiles                 = true\n  writeBarrelFiles                 = false\n  createOptionalDefaultValuesTypes = true\n  createRelationValuesTypes        = true\n  createPartialTypes               = true\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  username  String   @unique @db.VarChar(30)\n  email     String   @unique @db.VarChar(255)\n  password  String\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @default(now()) @updatedAt @map(\"updated_at\")\n\n  @@index([email])\n  @@map(\"users\")\n}\n",
+  "inlineSchemaHash": "f78c570477812251b67bfc843e3bc95c00524d539a5941314a54cef258a84178",
+  "copyEngine": true
 }
 
 const fs = require('fs')
@@ -202,3 +203,9 @@ const PrismaClient = getPrismaClient(config)
 exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
+path.join(process.cwd(), "app/generated/prisma/libquery_engine-darwin-arm64.dylib.node")
+// file annotations for bundling tools to include these files
+path.join(__dirname, "schema.prisma");
+path.join(process.cwd(), "app/generated/prisma/schema.prisma")
