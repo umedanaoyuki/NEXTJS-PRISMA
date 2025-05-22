@@ -1111,7 +1111,13 @@ export namespace Prisma {
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
+      /**
+       * @zod.string.min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"})  
+       */
       username: string
+      /**
+       * @zod.string.email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"})
+       */
       email: string
       password: string
       createdAt: Date

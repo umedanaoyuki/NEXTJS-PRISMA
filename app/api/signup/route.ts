@@ -1,9 +1,22 @@
 import prisma from "@/lib/prisma";
+import UserCreateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/UserCreateInputSchema";
 
 export async function POST(request: Request) {
   const res = await request.json();
+  const bodyValidation = UserCreateInputSchema.safeParse(res);
 
-  const { username, email, password } = res;
+  if (!bodyValidation.success) {
+    return Response.json(
+      {
+        error: bodyValidation.error,
+      },
+      {
+        status: 400,
+      }
+    );
+  }
+
+  const { username, email, password } = bodyValidation.data;
 
   try {
     const user = await prisma.user.create({

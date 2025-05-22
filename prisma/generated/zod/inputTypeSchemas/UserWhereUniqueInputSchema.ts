@@ -8,35 +8,35 @@ import { DateTimeFilterSchema } from './DateTimeFilterSchema';
 export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> = z.union([
   z.object({
     id: z.number().int(),
-    username: z.string(),
-    email: z.string()
+    username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}),
+    email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"})
   }),
   z.object({
     id: z.number().int(),
-    username: z.string(),
+    username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}),
   }),
   z.object({
     id: z.number().int(),
-    email: z.string(),
+    email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"}),
   }),
   z.object({
     id: z.number().int(),
   }),
   z.object({
-    username: z.string(),
-    email: z.string(),
+    username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}),
+    email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"}),
   }),
   z.object({
-    username: z.string(),
+    username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}),
   }),
   z.object({
-    email: z.string(),
+    email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"}),
   }),
 ])
 .and(z.object({
   id: z.number().int().optional(),
-  username: z.string().optional(),
-  email: z.string().optional(),
+  username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}).optional(),
+  email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"}).optional(),
   AND: z.union([ z.lazy(() => UserWhereInputSchema),z.lazy(() => UserWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => UserWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => UserWhereInputSchema),z.lazy(() => UserWhereInputSchema).array() ]).optional(),
