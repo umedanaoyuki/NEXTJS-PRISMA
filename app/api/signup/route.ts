@@ -1,9 +1,10 @@
 import prisma from "@/lib/prisma";
+import { withErrorHandler } from "@/prisma/api/handler";
 import UserCreateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/UserCreateInputSchema";
 import { requestPasswpordSchema } from "@/schemas/userSchema";
 import bcrypt from "bcryptjs";
 
-export async function POST(request: Request) {
+export const POST = withErrorHandler(async (request: Request) => {
   const res = await request.json();
   const bodyValidation = UserCreateInputSchema.safeParse(res);
 
@@ -66,4 +67,4 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
-}
+});

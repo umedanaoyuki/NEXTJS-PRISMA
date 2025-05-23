@@ -1,8 +1,9 @@
 import prisma from "@/lib/prisma";
+import { withErrorHandler } from "@/prisma/api/handler";
 import { requestLoginSchema } from "@/schemas/userSchema";
 import bcrypt from "bcryptjs";
 
-export async function POST(request: Request) {
+export const POST = withErrorHandler(async (request: Request) => {
   const res = await request.json();
   const bodyValidation = requestLoginSchema.safeParse(res);
 
@@ -45,4 +46,4 @@ export async function POST(request: Request) {
       email: user.email,
     },
   });
-}
+});
