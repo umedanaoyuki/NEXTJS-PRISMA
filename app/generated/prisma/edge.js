@@ -154,7 +154,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -163,9 +162,9 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ngenerator zod {\n  provider                         = \"zod-prisma-types\"\n  useMultipleFiles                 = true\n  writeBarrelFiles                 = false\n  createOptionalDefaultValuesTypes = true\n  createRelationValuesTypes        = true\n  createPartialTypes               = true\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  /// @zod.string.min(1)  \n  username  String   @unique @db.VarChar(30)\n  /// @zod.string.email().min(1)\n  email     String   @unique @db.VarChar(255)\n  password  String\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @default(now()) @updatedAt @map(\"updated_at\")\n\n  @@index([email])\n  @@map(\"users\")\n}\n",
-  "inlineSchemaHash": "341c6a461460110f33a2c7231107780030831b01394a21bfd72bce0d51582fb1",
-  "copyEngine": true
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../app/generated/prisma\"\n}\n\ngenerator zod {\n  provider                         = \"zod-prisma-types\"\n  useMultipleFiles                 = true\n  writeBarrelFiles                 = false\n  createOptionalDefaultValuesTypes = true\n  createRelationValuesTypes        = true\n  createPartialTypes               = true\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  /// @zod.string.min(1)  \n  username  String   @unique @db.VarChar(30)\n  /// @zod.string.email().min(1)\n  email     String   @unique @db.VarChar(255)\n  password  String\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @default(now()) @updatedAt @map(\"updated_at\")\n\n  @@index([email])\n  @@index([username])\n  @@map(\"users\")\n}\n",
+  "inlineSchemaHash": "cc13dfdce1989ceb62626fc2f184344031bcfd350eec3a6cd1aa09718e8449c8",
+  "copyEngine": false
 }
 config.dirname = '/'
 
