@@ -6,8 +6,8 @@ import { z } from 'zod';
 
 export const UserSchema = z.object({
   id: z.number().int(),
-  username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}),
-  email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"}),
+  username: z.string().min(1),
+  email: z.string().email().min(1),
   password: z.string(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),

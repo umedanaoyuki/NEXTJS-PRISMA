@@ -8,35 +8,35 @@ import { DateTimeFilterSchema } from './DateTimeFilterSchema';
 export const UserWhereUniqueInputSchema: z.ZodType<Prisma.UserWhereUniqueInput> = z.union([
   z.object({
     id: z.number().int(),
-    username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}),
-    email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"})
+    username: z.string().min(1),
+    email: z.string().email().min(1)
   }),
   z.object({
     id: z.number().int(),
-    username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}),
+    username: z.string().min(1),
   }),
   z.object({
     id: z.number().int(),
-    email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"}),
+    email: z.string().email().min(1),
   }),
   z.object({
     id: z.number().int(),
   }),
   z.object({
-    username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}),
-    email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"}),
+    username: z.string().min(1),
+    email: z.string().email().min(1),
   }),
   z.object({
-    username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}),
+    username: z.string().min(1),
   }),
   z.object({
-    email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"}),
+    email: z.string().email().min(1),
   }),
 ])
 .and(z.object({
   id: z.number().int().optional(),
-  username: z.string().min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"}).optional(),
-  email: z.string().email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"}).optional(),
+  username: z.string().min(1).optional(),
+  email: z.string().email().min(1).optional(),
   AND: z.union([ z.lazy(() => UserWhereInputSchema),z.lazy(() => UserWhereInputSchema).array() ]).optional(),
   OR: z.lazy(() => UserWhereInputSchema).array().optional(),
   NOT: z.union([ z.lazy(() => UserWhereInputSchema),z.lazy(() => UserWhereInputSchema).array() ]).optional(),

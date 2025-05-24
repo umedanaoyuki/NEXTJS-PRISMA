@@ -25,9 +25,9 @@ generator zod {
 
 model User {
   id    Int     @id @default(autoincrement())
-  /// @zod.string.min(1, {message: "1文字以上入力してください"}).max(30, {message: "30文字以内で入力してください"})  
+  /// @zod.string.min(1)  
   username String @unique @db.VarChar(30)
-  /// @zod.string.email().min(1, {message: "1文字以上入力してください"}).max(255, {message: "255文字以内で入力してください"})
+  /// @zod.string.email().min(1)
   email String @unique @db.VarChar(255)
   password String
   createdAt DateTime @default(now()) @map("created_at")

@@ -11,7 +11,9 @@ export const POST = withErrorHandler(async (request: Request) => {
   if (!bodyValidation.success) {
     return Response.json(
       {
-        error: bodyValidation.error.errors,
+        error: bodyValidation.error.errors
+          .map((error) => error.message)
+          .join(","),
       },
       {
         status: 400,
