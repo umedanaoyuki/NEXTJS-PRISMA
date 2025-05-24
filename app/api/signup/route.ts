@@ -1,3 +1,4 @@
+import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
 import { withErrorHandler } from "@/prisma/api/handler";
 import UserCreateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/UserCreateInputSchema";
@@ -6,19 +7,11 @@ import bcrypt from "bcryptjs";
 
 export const POST = withErrorHandler(async (request: Request) => {
   const res = await request.json();
-  const bodyValidation = UserCreateInputSchema.safeParse(res);
+
+  const bodyValidation = validateRequest(res, UserCreateInputSchema);
 
   if (!bodyValidation.success) {
-    return Response.json(
-      {
-        error: bodyValidation.error.errors
-          .map((error) => error.message)
-          .join(","),
-      },
-      {
-        status: 400,
-      }
-    );
+    return bodyValidation.error;
   }
 
   const { username, email, password } = bodyValidation.data;
@@ -36,15 +29,10 @@ export const POST = withErrorHandler(async (request: Request) => {
     );
   }
 
-  const passwordValidation = requestPasswpordSchema.safeParse(password);
+  const passwordValidation = validateRequest(password, requestPasswpordSchema);
 
   if (!passwordValidation.success) {
-    return Response.json(
-      {
-        error: passwordValidation.error.errors,
-      },
-      { status: 400 }
-    );
+    return passwordValidation.error;
   }
 
   const hash = bcrypt.hashSync(passwordValidation.data, 10);
