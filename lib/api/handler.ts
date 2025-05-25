@@ -1,16 +1,44 @@
+import { getAuthToken, verifyJWT } from "@/lib/api/auth";
+import { USER_FIELD_NAMES } from "@/lib/constants/user";
 import { Prisma } from "@prisma/client";
-import { getAuthToken, verifyJWT } from "./auth";
-import { USER_FIELD_NAMES } from "../constants/user";
 import { NextRequest } from "next/server";
 
-type ApiHandler = (request: NextRequest) => Promise<Response>;
+export type PathParams = { params: Promise<{ [key: string]: string }> };
+
+type ApiHandler = (
+  request: NextRequest,
+  pathParams?: PathParams
+) => Promise<Response>;
+
+type AuthenticatedHandler = (
+  request: NextRequest,
+  uerId: number
+) => Promise<ReportingObserver>;
 
 export const withErrorHandler = (handler: ApiHandler) => {
-  return async (req: NextRequest) => {
+  return async (req: NextRequest, pathParams?: PathParams) => {
     try {
-      return await handler(req);
-    } catch (error) {
-      console.error(error);
+      return await handler(req, pathParams);
+    } catch (err) {
+      console.error(err);
+      if (err instanceof Prisma.PrismaClientKnownRequestError) {
+        return Response.json(
+          {
+            error: getPrismaErrorMessage(err),
+          },
+          {
+            status: 500,
+          }
+        );
+      }
+      return Response.json(
+        {
+          error: "予期せぬエラーが発生しました",
+        },
+        {
+          status: 500,
+        }
+      );
     }
   };
 };
@@ -32,11 +60,6 @@ export const getPrismaErrorMessage = (
       return "予期せぬエラーが発生しました";
   }
 };
-
-type AuthenticatedHandler = (
-  request: NextRequest,
-  uerId: number
-) => Promise<ReportingObserver>;
 
 export const withAuth = (handler: AuthenticatedHandler) => {
   return withErrorHandler(async (req: NextRequest) => {
