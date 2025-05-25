@@ -1,4 +1,4 @@
-import { signJWT, verifyJWT } from "@/lib/api/auth";
+import { setAuthCookie, signJWT, verifyJWT } from "@/lib/api/auth";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
 import { withErrorHandler } from "@/prisma/api/handler";
@@ -43,10 +43,13 @@ export const POST = withErrorHandler(async (request: Request) => {
     username: user.username,
   });
 
+  console.log("token", token);
+
   const payload = await verifyJWT(token);
 
-  console.log("loginに成功しました");
-  console.log({ payload });
+  console.log("payload", payload);
+
+  await setAuthCookie(token);
 
   return Response.json({
     message: "ログインに成功しました",

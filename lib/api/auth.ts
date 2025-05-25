@@ -1,4 +1,5 @@
 import * as jose from "jose";
+import { cookies } from "next/headers";
 
 export type JWTPayload = {
   userId: number;
@@ -31,13 +32,20 @@ export const verifyJWT = async (token: string): Promise<JWTPayload> => {
     audience: AUDIENCE,
   });
 
-  console.log("veryfyJWT");
-  console.log(payload);
-
-  const { userId, username } = payload;
-
   return {
-    userId,
-    username,
+    userId: payload.payload.userId,
+    username: payload.payload.username,
   };
+};
+
+export const setAuthCookie = async (token: string) => {
+  const cookieStore = await cookies();
+
+  cookieStore.set("auth-token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+    maxAge: 60 * 60 * 24,
+  });
 };
