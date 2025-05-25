@@ -1,6 +1,6 @@
+import { withErrorHandler } from "@/lib/api/handler";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
-import { withErrorHandler } from "@/prisma/api/handler";
 import UserCreateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/UserCreateInputSchema";
 import { requestPasswpordSchema } from "@/schemas/userSchema";
 import bcrypt from "bcryptjs";
