@@ -1,10 +1,12 @@
-import { handleClientScriptLoad } from "next/script";
+import { Prisma } from "@prisma/client";
 import { getAuthToken, verifyJWT } from "./auth";
+import { USER_FIELD_NAMES } from "../constants/user";
+import { NextRequest } from "next/server";
 
-type ApiHandler = (request: Request) => Promise<Response>;
+type ApiHandler = (request: NextRequest) => Promise<Response>;
 
 export const withErrorHandler = (handler: ApiHandler) => {
-  return async (req: Request) => {
+  return async (req: NextRequest) => {
     try {
       return await handler(req);
     } catch (error) {
@@ -13,15 +15,31 @@ export const withErrorHandler = (handler: ApiHandler) => {
   };
 };
 
-// TODO: getPrismaErrorMessage
+export const getPrismaErrorMessage = (
+  error: Prisma.PrismaClientKnownRequestError
+) => {
+  switch (error.code) {
+    case "P2002":
+      const fieldnames =
+        (error.meta?.target as string[])
+          .map(
+            (name) =>
+              USER_FIELD_NAMES[name as keyof typeof USER_FIELD_NAMES] ?? name
+          )
+          .join(",") ?? "特定のフィールド";
+      return `${fieldnames}はすでに登録されている情報です`;
+    default:
+      return "予期せぬエラーが発生しました";
+  }
+};
 
 type AuthenticatedHandler = (
-  request: Request,
+  request: NextRequest,
   uerId: number
 ) => Promise<ReportingObserver>;
 
 export const withAuth = (handler: AuthenticatedHandler) => {
-  return withErrorHandler(async (req: Request) => {
+  return withErrorHandler(async (req: NextRequest) => {
     const token = await getAuthToken();
 
     if (token == null) {

@@ -4,8 +4,9 @@ import { withErrorHandler } from "@/prisma/api/handler";
 import UserCreateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/UserCreateInputSchema";
 import { requestPasswpordSchema } from "@/schemas/userSchema";
 import bcrypt from "bcryptjs";
+import { NextRequest } from "next/server";
 
-export const POST = withErrorHandler(async (request: Request) => {
+export const POST = withErrorHandler(async (request: NextRequest) => {
   const res = await request.json();
 
   const bodyValidation = validateRequest(res, UserCreateInputSchema);

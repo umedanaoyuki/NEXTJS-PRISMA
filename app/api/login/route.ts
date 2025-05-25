@@ -4,8 +4,9 @@ import prisma from "@/lib/prisma";
 import { withErrorHandler } from "@/prisma/api/handler";
 import { requestLoginSchema } from "@/schemas/userSchema";
 import bcrypt from "bcryptjs";
+import { NextRequest } from "next/server";
 
-export const POST = withErrorHandler(async (request: Request) => {
+export const POST = withErrorHandler(async (request: NextRequest) => {
   const res = await request.json();
 
   const bodyValidation = validateRequest(res, requestLoginSchema);

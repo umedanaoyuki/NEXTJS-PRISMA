@@ -1,10 +1,11 @@
 import { USER_FIELD_NAMES } from "@/lib/constants/user";
 import { Prisma } from "@prisma/client";
+import { NextRequest } from "next/server";
 
-type ApiHandler = (request: Request) => Promise<Response>;
+type ApiHandler = (request: NextRequest) => Promise<Response>;
 
 export const withErrorHandler = (handler: ApiHandler) => {
-  return async (req: Request) => {
+  return async (req: NextRequest) => {
     try {
       return await handler(req);
     } catch (err) {
