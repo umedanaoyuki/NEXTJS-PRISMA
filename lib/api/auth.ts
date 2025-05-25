@@ -22,3 +22,22 @@ export const signJWT = async (payload: JWTPayload): Promise<string> => {
     .setExpirationTime("24h")
     .sign(secret);
 };
+
+export const verifyJWT = async (token: string): Promise<JWTPayload> => {
+  const secret = new TextEncoder().encode(JWT_SECRET);
+
+  const { payload } = await jose.jwtVerify<JWTPayload>(token, secret, {
+    issuer: ISSUER,
+    audience: AUDIENCE,
+  });
+
+  console.log("veryfyJWT");
+  console.log(payload);
+
+  const { userId, username } = payload;
+
+  return {
+    userId,
+    username,
+  };
+};
