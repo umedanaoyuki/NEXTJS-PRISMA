@@ -1,3 +1,4 @@
+import { signJWT } from "@/lib/api/auth";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
 import { withErrorHandler } from "@/prisma/api/handler";
@@ -36,6 +37,13 @@ export const POST = withErrorHandler(async (request: Request) => {
       { status: 401 }
     );
   }
+
+  const token = await signJWT({
+    userId: user.id,
+    username: user.username,
+  });
+
+  console.log({ token });
 
   return Response.json({
     message: "ログインに成功しました",
