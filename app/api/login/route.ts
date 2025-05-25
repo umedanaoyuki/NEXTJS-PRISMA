@@ -1,7 +1,7 @@
 import { setAuthCookie, signJWT, verifyJWT } from "@/lib/api/auth";
+import { withErrorHandler } from "@/lib/api/handler";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
-import { withErrorHandler } from "@/prisma/api/handler";
 import { requestLoginSchema } from "@/schemas/userSchema";
 import bcrypt from "bcryptjs";
 import { NextRequest } from "next/server";

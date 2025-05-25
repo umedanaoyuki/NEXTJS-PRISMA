@@ -12,7 +12,8 @@ type ApiHandler = (
 
 type AuthenticatedHandler = (
   request: NextRequest,
-  uerId: number
+  uerId: number,
+  pathParams?: PathParams
 ) => Promise<ReportingObserver>;
 
 export const withErrorHandler = (handler: ApiHandler) => {
@@ -62,7 +63,7 @@ export const getPrismaErrorMessage = (
 };
 
 export const withAuth = (handler: AuthenticatedHandler) => {
-  return withErrorHandler(async (req: NextRequest) => {
+  return withErrorHandler(async (req: NextRequest, pathParams?: PathParams) => {
     const token = await getAuthToken();
 
     if (token == null) {
@@ -70,6 +71,6 @@ export const withAuth = (handler: AuthenticatedHandler) => {
     }
 
     const { userId } = await verifyJWT(token);
-    return handler(req, userId);
+    return handler(req, userId, pathParams);
   });
 };

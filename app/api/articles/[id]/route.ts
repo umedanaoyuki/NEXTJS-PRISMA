@@ -1,56 +1,38 @@
 import { withAuth } from "@/lib/api/handler";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
-import ArticleCreateManyUserInputSchema from "@/prisma/generated/zod/inputTypeSchemas/ArticleCreateManyUserInputSchema";
-import { paginationQuerySchema } from "@/schemas/requestSchema";
+import { pathIdSchema } from "@/schemas/requestSchema";
 import { NextRequest } from "next/server";
 
-export const GET = withAuth(async (request: NextRequest, userId: number) => {
-  const searchParams = request.nextUrl.searchParams;
-  const query = Object.fromEntries(searchParams);
-  const queryValidation = validateRequest(query, paginationQuerySchema);
+export const GET = withAuth(
+  async (_request: NextRequest, _userId: number, pathParams?: PathParams) => {
+    const params = await pathParams?.params;
+    const idValidation = validateRequest(params, pathIdSchema);
 
-  if (!queryValidation.success) {
-    return queryValidation.error;
-  }
+    if (!idValidation.success) {
+      return idValidation.error;
+    }
 
-  const { take, skip } = queryValidation.data;
+    const { id } = idValidation.data;
 
-  const articles = await prisma.article.findMany({
-    include: {
-      user: {
-        select: {
-          id: true,
-          username: true,
+    const article = await prisma.article.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            username: true,
+          },
         },
       },
-    },
-    take,
-    skip,
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-  return Response.json(articles);
-});
+    });
 
-export const POST = withAuth(async (request: NextRequest, userId: number) => {
-  const res = await request.json();
-  const bodyValidation = validateRequest(res, ArticleCreateManyUserInputSchema);
+    if (article == null) {
+      return Response.json({ error: "記事が見つかりません" }, { status: 404 });
+    }
 
-  if (!bodyValidation.success) {
-    return bodyValidation.error;
+    return Response.json(article);
   }
-
-  const { title, content } = bodyValidation.data;
-
-  const article = await prisma.article.create({
-    data: {
-      title,
-      content,
-      userId,
-    },
-  });
-
-  return Response.json({ article });
-});
+);

@@ -19,3 +19,12 @@ export const paginationQuerySchema = z.object({
   take?: number;
   skip?: number;
 }>;
+
+export const pathIdSchema = z.object({
+  id: z
+    .string()
+    .transform((val) => parseInt(val))
+    .refine((val) => !isNaN(val), {
+      message: "idの形式が異なります",
+    }),
+});
