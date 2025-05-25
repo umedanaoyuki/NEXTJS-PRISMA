@@ -10,6 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET ?? "invalid";
 
 const ISSUER = "prisma-practice";
 const AUDIENCE = "prisma-practice-web";
+const COOKIE_NAME = "auth-token";
 
 export const signJWT = async (payload: JWTPayload): Promise<string> => {
   const secret = new TextEncoder().encode(JWT_SECRET);
@@ -48,4 +49,9 @@ export const setAuthCookie = async (token: string) => {
     path: "/",
     maxAge: 60 * 60 * 24,
   });
+};
+
+export const getAuthToken = async (): Promise<string | null> => {
+  const cookieStore = await cookies();
+  return cookieStore.get(COOKIE_NAME)?.value ?? null;
 };
