@@ -1,0 +1,1 @@
+ALTER TABLE "tags" ADD CONSTRAINT "tags_username_length_check" CHECK (length("name") >= 1);

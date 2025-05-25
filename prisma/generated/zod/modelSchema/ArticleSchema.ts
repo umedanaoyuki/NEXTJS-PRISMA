@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { UserWithRelationsSchema, UserPartialWithRelationsSchema, UserOptionalDefaultsWithRelationsSchema } from './UserSchema'
 import type { UserWithRelations, UserPartialWithRelations, UserOptionalDefaultsWithRelations } from './UserSchema'
+import { ArticleTagWithRelationsSchema, ArticleTagPartialWithRelationsSchema, ArticleTagOptionalDefaultsWithRelationsSchema } from './ArticleTagSchema'
+import type { ArticleTagWithRelations, ArticleTagPartialWithRelations, ArticleTagOptionalDefaultsWithRelations } from './ArticleTagSchema'
 
 /////////////////////////////////////////
 // ARTICLE SCHEMA
@@ -43,12 +45,14 @@ export type ArticleOptionalDefaults = z.infer<typeof ArticleOptionalDefaultsSche
 
 export type ArticleRelations = {
   user: UserWithRelations;
+  ArticleTag: ArticleTagWithRelations[];
 };
 
 export type ArticleWithRelations = z.infer<typeof ArticleSchema> & ArticleRelations
 
 export const ArticleWithRelationsSchema: z.ZodType<ArticleWithRelations> = ArticleSchema.merge(z.object({
   user: z.lazy(() => UserWithRelationsSchema),
+  ArticleTag: z.lazy(() => ArticleTagWithRelationsSchema).array(),
 }))
 
 /////////////////////////////////////////
@@ -57,12 +61,14 @@ export const ArticleWithRelationsSchema: z.ZodType<ArticleWithRelations> = Artic
 
 export type ArticleOptionalDefaultsRelations = {
   user: UserOptionalDefaultsWithRelations;
+  ArticleTag: ArticleTagOptionalDefaultsWithRelations[];
 };
 
 export type ArticleOptionalDefaultsWithRelations = z.infer<typeof ArticleOptionalDefaultsSchema> & ArticleOptionalDefaultsRelations
 
 export const ArticleOptionalDefaultsWithRelationsSchema: z.ZodType<ArticleOptionalDefaultsWithRelations> = ArticleOptionalDefaultsSchema.merge(z.object({
   user: z.lazy(() => UserOptionalDefaultsWithRelationsSchema),
+  ArticleTag: z.lazy(() => ArticleTagOptionalDefaultsWithRelationsSchema).array(),
 }))
 
 /////////////////////////////////////////
@@ -71,24 +77,28 @@ export const ArticleOptionalDefaultsWithRelationsSchema: z.ZodType<ArticleOption
 
 export type ArticlePartialRelations = {
   user?: UserPartialWithRelations;
+  ArticleTag?: ArticleTagPartialWithRelations[];
 };
 
 export type ArticlePartialWithRelations = z.infer<typeof ArticlePartialSchema> & ArticlePartialRelations
 
 export const ArticlePartialWithRelationsSchema: z.ZodType<ArticlePartialWithRelations> = ArticlePartialSchema.merge(z.object({
   user: z.lazy(() => UserPartialWithRelationsSchema),
+  ArticleTag: z.lazy(() => ArticleTagPartialWithRelationsSchema).array(),
 })).partial()
 
 export type ArticleOptionalDefaultsWithPartialRelations = z.infer<typeof ArticleOptionalDefaultsSchema> & ArticlePartialRelations
 
 export const ArticleOptionalDefaultsWithPartialRelationsSchema: z.ZodType<ArticleOptionalDefaultsWithPartialRelations> = ArticleOptionalDefaultsSchema.merge(z.object({
   user: z.lazy(() => UserPartialWithRelationsSchema),
+  ArticleTag: z.lazy(() => ArticleTagPartialWithRelationsSchema).array(),
 }).partial())
 
 export type ArticleWithPartialRelations = z.infer<typeof ArticleSchema> & ArticlePartialRelations
 
 export const ArticleWithPartialRelationsSchema: z.ZodType<ArticleWithPartialRelations> = ArticleSchema.merge(z.object({
   user: z.lazy(() => UserPartialWithRelationsSchema),
+  ArticleTag: z.lazy(() => ArticleTagPartialWithRelationsSchema).array(),
 }).partial())
 
 export default ArticleSchema;

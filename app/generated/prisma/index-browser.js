@@ -138,6 +138,21 @@ exports.Prisma.ArticleScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.TagScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ArticleTagScalarFieldEnum = {
+  id: 'id',
+  articleId: 'articleId',
+  tagId: 'tagId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -151,7 +166,9 @@ exports.Prisma.QueryMode = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Article: 'Article'
+  Article: 'Article',
+  Tag: 'Tag',
+  ArticleTag: 'ArticleTag'
 };
 
 /**
