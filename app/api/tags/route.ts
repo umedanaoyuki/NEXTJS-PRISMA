@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/api/handler";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
-import ArticleCreateManyUserInputSchema from "@/prisma/generated/zod/inputTypeSchemas/ArticleCreateManyUserInputSchema";
+import TagCreateWithoutArticleTagInputSchema from "@/prisma/generated/zod/inputTypeSchemas/TagCreateWithoutArticleTagInputSchema";
 import { paginationQuerySchema } from "@/schemas/requestSchema";
 import { NextRequest } from "next/server";
 
@@ -16,39 +16,32 @@ export const GET = withAuth(async (request: NextRequest) => {
 
   const { take, skip } = queryValidation.data;
 
-  const articles = await prisma.article.findMany({
-    include: {
-      user: {
-        select: {
-          id: true,
-          username: true,
-        },
-      },
-    },
+  const tags = await prisma.article.findMany({
     take,
     skip,
     orderBy: {
       createdAt: "desc",
     },
   });
-  return Response.json(articles);
+  return Response.json(tags);
 });
 
-export const POST = withAuth(async (request: NextRequest, userId: number) => {
+export const POST = withAuth(async (request: NextRequest) => {
   const res = await request.json();
-  const bodyValidation = validateRequest(res, ArticleCreateManyUserInputSchema);
+  const bodyValidation = validateRequest(
+    res,
+    TagCreateWithoutArticleTagInputSchema
+  );
 
   if (!bodyValidation.success) {
     return bodyValidation.error;
   }
 
-  const { title, content } = bodyValidation.data;
+  const { name } = bodyValidation.data;
 
-  const article = await prisma.article.create({
+  const article = await prisma.tag.create({
     data: {
-      title,
-      content,
-      userId,
+      name,
     },
   });
 
