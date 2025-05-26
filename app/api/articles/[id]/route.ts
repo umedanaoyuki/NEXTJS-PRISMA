@@ -2,7 +2,6 @@ import { withAuth } from "@/lib/api/handler";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
 import ArticleUpdateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/ArticleUpdateInputSchema";
-import ArticleUpdateWithoutUserInputSchema from "@/prisma/generated/zod/inputTypeSchemas/ArticleUpdateWithoutUserInputSchema";
 import { pathIdSchema } from "@/schemas/requestSchema";
 import { NextRequest } from "next/server";
 
@@ -26,6 +25,11 @@ export const GET = withAuth(
           select: {
             id: true,
             username: true,
+          },
+        },
+        articleTags: {
+          include: {
+            tag: true,
           },
         },
       },
