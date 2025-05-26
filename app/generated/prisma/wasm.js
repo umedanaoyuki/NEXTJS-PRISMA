@@ -153,6 +153,22 @@ exports.Prisma.ArticleTagScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.OrganizationScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.UserOrganizationScalarFieldEnum = {
+  id: 'id',
+  role: 'role',
+  userId: 'userId',
+  organizationId: 'organizationId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -162,13 +178,18 @@ exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 };
-
+exports.Role = exports.$Enums.Role = {
+  ADMIN: 'ADMIN',
+  MEMBER: 'MEMBER'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
   Article: 'Article',
   Tag: 'Tag',
-  ArticleTag: 'ArticleTag'
+  ArticleTag: 'ArticleTag',
+  Organization: 'Organization',
+  UserOrganization: 'UserOrganization'
 };
 
 /**

@@ -1,0 +1,1 @@
+ALTER TABLE "organizations" ADD CONSTRAINT "organization_username_length_check" CHECK (length("name") >= 1);
