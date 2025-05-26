@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/api/handler";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
-import ArticleCreateManyUserInputSchema from "@/prisma/generated/zod/inputTypeSchemas/ArticleCreateManyUserInputSchema";
+import ArticleCreateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/ArticleCreateInputSchema";
 import { paginationQuerySchema } from "@/schemas/requestSchema";
 import { NextRequest } from "next/server";
 
@@ -35,21 +35,30 @@ export const GET = withAuth(async (request: NextRequest) => {
 });
 
 export const POST = withAuth(async (request: NextRequest, userId: number) => {
-  const res = await request.json();
-  const bodyValidation = validateRequest(res, ArticleCreateManyUserInputSchema);
+  const { tagIds, ...res } = await request.json();
+  const bodyValidation = validateRequest(
+    {
+      ...res,
+      user: {
+        connect: {
+          id: userId,
+        },
+      },
+      articleTags: {
+        create: tagIds.map((tagId: number) => ({
+          tagId,
+        })),
+      },
+    },
+    ArticleCreateInputSchema
+  );
 
   if (!bodyValidation.success) {
     return bodyValidation.error;
   }
 
-  const { title, content } = bodyValidation.data;
-
   const article = await prisma.article.create({
-    data: {
-      title,
-      content,
-      userId,
-    },
+    data: bodyValidation.data,
   });
 
   return Response.json({ article });

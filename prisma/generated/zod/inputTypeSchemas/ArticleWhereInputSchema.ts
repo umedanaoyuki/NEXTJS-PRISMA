@@ -19,7 +19,7 @@ export const ArticleWhereInputSchema: z.ZodType<Prisma.ArticleWhereInput> = z.ob
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   updatedAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   user: z.union([ z.lazy(() => UserScalarRelationFilterSchema),z.lazy(() => UserWhereInputSchema) ]).optional(),
-  ArticleTag: z.lazy(() => ArticleTagListRelationFilterSchema).optional()
+  articleTags: z.lazy(() => ArticleTagListRelationFilterSchema).optional()
 }).strict();
 
 export default ArticleWhereInputSchema;

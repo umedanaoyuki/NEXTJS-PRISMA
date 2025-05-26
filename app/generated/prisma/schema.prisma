@@ -40,28 +40,28 @@ model User {
 }
 
 model Article {
-  id         Int          @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   /// @zod.string.min(1).max(100)  
-  title      String       @db.VarChar(100)
+  title       String       @db.VarChar(100)
   /// @zod.string.min(1)
-  content    String
-  userId     Int          @map("user_id")
-  createdAt  DateTime     @default(now()) @map("created_at")
-  updatedAt  DateTime     @default(now()) @updatedAt @map("updated_at")
-  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  ArticleTag ArticleTag[]
+  content     String
+  userId      Int          @map("user_id")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @default(now()) @updatedAt @map("updated_at")
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  articleTags ArticleTag[]
 
   @@index([userId])
   @@map("articles")
 }
 
 model Tag {
-  id         Int          @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   /// @zod.string.min(1).max(30)
-  name       String       @db.VarChar(30)
-  createdAt  DateTime     @default(now()) @map("created_at")
-  updatedAt  DateTime     @default(now()) @updatedAt @map("updated_at")
-  ArticleTag ArticleTag[]
+  name        String       @db.VarChar(30)
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @default(now()) @updatedAt @map("updated_at")
+  articleTags ArticleTag[]
 
   @@index([name])
   @@map("tags")

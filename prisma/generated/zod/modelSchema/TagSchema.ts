@@ -40,13 +40,13 @@ export type TagOptionalDefaults = z.infer<typeof TagOptionalDefaultsSchema>
 /////////////////////////////////////////
 
 export type TagRelations = {
-  ArticleTag: ArticleTagWithRelations[];
+  articleTags: ArticleTagWithRelations[];
 };
 
 export type TagWithRelations = z.infer<typeof TagSchema> & TagRelations
 
 export const TagWithRelationsSchema: z.ZodType<TagWithRelations> = TagSchema.merge(z.object({
-  ArticleTag: z.lazy(() => ArticleTagWithRelationsSchema).array(),
+  articleTags: z.lazy(() => ArticleTagWithRelationsSchema).array(),
 }))
 
 /////////////////////////////////////////
@@ -54,13 +54,13 @@ export const TagWithRelationsSchema: z.ZodType<TagWithRelations> = TagSchema.mer
 /////////////////////////////////////////
 
 export type TagOptionalDefaultsRelations = {
-  ArticleTag: ArticleTagOptionalDefaultsWithRelations[];
+  articleTags: ArticleTagOptionalDefaultsWithRelations[];
 };
 
 export type TagOptionalDefaultsWithRelations = z.infer<typeof TagOptionalDefaultsSchema> & TagOptionalDefaultsRelations
 
 export const TagOptionalDefaultsWithRelationsSchema: z.ZodType<TagOptionalDefaultsWithRelations> = TagOptionalDefaultsSchema.merge(z.object({
-  ArticleTag: z.lazy(() => ArticleTagOptionalDefaultsWithRelationsSchema).array(),
+  articleTags: z.lazy(() => ArticleTagOptionalDefaultsWithRelationsSchema).array(),
 }))
 
 /////////////////////////////////////////
@@ -68,25 +68,25 @@ export const TagOptionalDefaultsWithRelationsSchema: z.ZodType<TagOptionalDefaul
 /////////////////////////////////////////
 
 export type TagPartialRelations = {
-  ArticleTag?: ArticleTagPartialWithRelations[];
+  articleTags?: ArticleTagPartialWithRelations[];
 };
 
 export type TagPartialWithRelations = z.infer<typeof TagPartialSchema> & TagPartialRelations
 
 export const TagPartialWithRelationsSchema: z.ZodType<TagPartialWithRelations> = TagPartialSchema.merge(z.object({
-  ArticleTag: z.lazy(() => ArticleTagPartialWithRelationsSchema).array(),
+  articleTags: z.lazy(() => ArticleTagPartialWithRelationsSchema).array(),
 })).partial()
 
 export type TagOptionalDefaultsWithPartialRelations = z.infer<typeof TagOptionalDefaultsSchema> & TagPartialRelations
 
 export const TagOptionalDefaultsWithPartialRelationsSchema: z.ZodType<TagOptionalDefaultsWithPartialRelations> = TagOptionalDefaultsSchema.merge(z.object({
-  ArticleTag: z.lazy(() => ArticleTagPartialWithRelationsSchema).array(),
+  articleTags: z.lazy(() => ArticleTagPartialWithRelationsSchema).array(),
 }).partial())
 
 export type TagWithPartialRelations = z.infer<typeof TagSchema> & TagPartialRelations
 
 export const TagWithPartialRelationsSchema: z.ZodType<TagWithPartialRelations> = TagSchema.merge(z.object({
-  ArticleTag: z.lazy(() => ArticleTagPartialWithRelationsSchema).array(),
+  articleTags: z.lazy(() => ArticleTagPartialWithRelationsSchema).array(),
 }).partial())
 
 export default TagSchema;

@@ -17,7 +17,7 @@ export const TagWhereUniqueInputSchema: z.ZodType<Prisma.TagWhereUniqueInput> = 
   name: z.union([ z.lazy(() => StringFilterSchema),z.string().min(1).max(30) ]).optional(),
   createdAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
   updatedAt: z.union([ z.lazy(() => DateTimeFilterSchema),z.coerce.date() ]).optional(),
-  ArticleTag: z.lazy(() => ArticleTagListRelationFilterSchema).optional()
+  articleTags: z.lazy(() => ArticleTagListRelationFilterSchema).optional()
 }).strict());
 
 export default TagWhereUniqueInputSchema;

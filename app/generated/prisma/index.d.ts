@@ -1173,11 +1173,11 @@ export namespace Prisma {
    */
 
   export type ArticleCountOutputType = {
-    ArticleTag: number
+    articleTags: number
   }
 
   export type ArticleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ArticleTag?: boolean | ArticleCountOutputTypeCountArticleTagArgs
+    articleTags?: boolean | ArticleCountOutputTypeCountArticleTagsArgs
   }
 
   // Custom InputTypes
@@ -1194,7 +1194,7 @@ export namespace Prisma {
   /**
    * ArticleCountOutputType without action
    */
-  export type ArticleCountOutputTypeCountArticleTagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type ArticleCountOutputTypeCountArticleTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ArticleTagWhereInput
   }
 
@@ -1204,11 +1204,11 @@ export namespace Prisma {
    */
 
   export type TagCountOutputType = {
-    ArticleTag: number
+    articleTags: number
   }
 
   export type TagCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ArticleTag?: boolean | TagCountOutputTypeCountArticleTagArgs
+    articleTags?: boolean | TagCountOutputTypeCountArticleTagsArgs
   }
 
   // Custom InputTypes
@@ -1225,7 +1225,7 @@ export namespace Prisma {
   /**
    * TagCountOutputType without action
    */
-  export type TagCountOutputTypeCountArticleTagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type TagCountOutputTypeCountArticleTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ArticleTagWhereInput
   }
 
@@ -2568,7 +2568,7 @@ export namespace Prisma {
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    ArticleTag?: boolean | Article$ArticleTagArgs<ExtArgs>
+    articleTags?: boolean | Article$articleTagsArgs<ExtArgs>
     _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["article"]>
 
@@ -2604,7 +2604,7 @@ export namespace Prisma {
   export type ArticleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "content" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["article"]>
   export type ArticleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    ArticleTag?: boolean | Article$ArticleTagArgs<ExtArgs>
+    articleTags?: boolean | Article$articleTagsArgs<ExtArgs>
     _count?: boolean | ArticleCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ArticleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2618,7 +2618,7 @@ export namespace Prisma {
     name: "Article"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      ArticleTag: Prisma.$ArticleTagPayload<ExtArgs>[]
+      articleTags: Prisma.$ArticleTagPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3028,7 +3028,7 @@ export namespace Prisma {
   export interface Prisma__ArticleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    ArticleTag<T extends Article$ArticleTagArgs<ExtArgs> = {}>(args?: Subset<T, Article$ArticleTagArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    articleTags<T extends Article$articleTagsArgs<ExtArgs> = {}>(args?: Subset<T, Article$articleTagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3460,9 +3460,9 @@ export namespace Prisma {
   }
 
   /**
-   * Article.ArticleTag
+   * Article.articleTags
    */
-  export type Article$ArticleTagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Article$articleTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ArticleTag
      */
@@ -3692,7 +3692,7 @@ export namespace Prisma {
     name?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    ArticleTag?: boolean | Tag$ArticleTagArgs<ExtArgs>
+    articleTags?: boolean | Tag$articleTagsArgs<ExtArgs>
     _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tag"]>
 
@@ -3719,7 +3719,7 @@ export namespace Prisma {
 
   export type TagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt" | "updatedAt", ExtArgs["result"]["tag"]>
   export type TagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    ArticleTag?: boolean | Tag$ArticleTagArgs<ExtArgs>
+    articleTags?: boolean | Tag$articleTagsArgs<ExtArgs>
     _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3728,7 +3728,7 @@ export namespace Prisma {
   export type $TagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tag"
     objects: {
-      ArticleTag: Prisma.$ArticleTagPayload<ExtArgs>[]
+      articleTags: Prisma.$ArticleTagPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -4132,7 +4132,7 @@ export namespace Prisma {
    */
   export interface Prisma__TagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    ArticleTag<T extends Tag$ArticleTagArgs<ExtArgs> = {}>(args?: Subset<T, Tag$ArticleTagArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    articleTags<T extends Tag$articleTagsArgs<ExtArgs> = {}>(args?: Subset<T, Tag$articleTagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ArticleTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4554,9 +4554,9 @@ export namespace Prisma {
   }
 
   /**
-   * Tag.ArticleTag
+   * Tag.articleTags
    */
-  export type Tag$ArticleTagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Tag$articleTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the ArticleTag
      */
@@ -5916,7 +5916,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Article"> | Date | string
     updatedAt?: DateTimeFilter<"Article"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    ArticleTag?: ArticleTagListRelationFilter
+    articleTags?: ArticleTagListRelationFilter
   }
 
   export type ArticleOrderByWithRelationInput = {
@@ -5927,7 +5927,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
-    ArticleTag?: ArticleTagOrderByRelationAggregateInput
+    articleTags?: ArticleTagOrderByRelationAggregateInput
   }
 
   export type ArticleWhereUniqueInput = Prisma.AtLeast<{
@@ -5941,7 +5941,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Article"> | Date | string
     updatedAt?: DateTimeFilter<"Article"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    ArticleTag?: ArticleTagListRelationFilter
+    articleTags?: ArticleTagListRelationFilter
   }, "id">
 
   export type ArticleOrderByWithAggregationInput = {
@@ -5978,7 +5978,7 @@ export namespace Prisma {
     name?: StringFilter<"Tag"> | string
     createdAt?: DateTimeFilter<"Tag"> | Date | string
     updatedAt?: DateTimeFilter<"Tag"> | Date | string
-    ArticleTag?: ArticleTagListRelationFilter
+    articleTags?: ArticleTagListRelationFilter
   }
 
   export type TagOrderByWithRelationInput = {
@@ -5986,7 +5986,7 @@ export namespace Prisma {
     name?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    ArticleTag?: ArticleTagOrderByRelationAggregateInput
+    articleTags?: ArticleTagOrderByRelationAggregateInput
   }
 
   export type TagWhereUniqueInput = Prisma.AtLeast<{
@@ -5997,7 +5997,7 @@ export namespace Prisma {
     name?: StringFilter<"Tag"> | string
     createdAt?: DateTimeFilter<"Tag"> | Date | string
     updatedAt?: DateTimeFilter<"Tag"> | Date | string
-    ArticleTag?: ArticleTagListRelationFilter
+    articleTags?: ArticleTagListRelationFilter
   }, "id">
 
   export type TagOrderByWithAggregationInput = {
@@ -6152,7 +6152,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutArticlesInput
-    ArticleTag?: ArticleTagCreateNestedManyWithoutArticleInput
+    articleTags?: ArticleTagCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleUncheckedCreateInput = {
@@ -6162,7 +6162,7 @@ export namespace Prisma {
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    ArticleTag?: ArticleTagUncheckedCreateNestedManyWithoutArticleInput
+    articleTags?: ArticleTagUncheckedCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleUpdateInput = {
@@ -6171,7 +6171,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutArticlesNestedInput
-    ArticleTag?: ArticleTagUpdateManyWithoutArticleNestedInput
+    articleTags?: ArticleTagUpdateManyWithoutArticleNestedInput
   }
 
   export type ArticleUncheckedUpdateInput = {
@@ -6181,7 +6181,7 @@ export namespace Prisma {
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ArticleTag?: ArticleTagUncheckedUpdateManyWithoutArticleNestedInput
+    articleTags?: ArticleTagUncheckedUpdateManyWithoutArticleNestedInput
   }
 
   export type ArticleCreateManyInput = {
@@ -6213,7 +6213,7 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ArticleTag?: ArticleTagCreateNestedManyWithoutTagInput
+    articleTags?: ArticleTagCreateNestedManyWithoutTagInput
   }
 
   export type TagUncheckedCreateInput = {
@@ -6221,14 +6221,14 @@ export namespace Prisma {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ArticleTag?: ArticleTagUncheckedCreateNestedManyWithoutTagInput
+    articleTags?: ArticleTagUncheckedCreateNestedManyWithoutTagInput
   }
 
   export type TagUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ArticleTag?: ArticleTagUpdateManyWithoutTagNestedInput
+    articleTags?: ArticleTagUpdateManyWithoutTagNestedInput
   }
 
   export type TagUncheckedUpdateInput = {
@@ -6236,7 +6236,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ArticleTag?: ArticleTagUncheckedUpdateManyWithoutTagNestedInput
+    articleTags?: ArticleTagUncheckedUpdateManyWithoutTagNestedInput
   }
 
   export type TagCreateManyInput = {
@@ -6262,8 +6262,8 @@ export namespace Prisma {
   export type ArticleTagCreateInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    article: ArticleCreateNestedOneWithoutArticleTagInput
-    tag: TagCreateNestedOneWithoutArticleTagInput
+    article: ArticleCreateNestedOneWithoutArticleTagsInput
+    tag: TagCreateNestedOneWithoutArticleTagsInput
   }
 
   export type ArticleTagUncheckedCreateInput = {
@@ -6277,8 +6277,8 @@ export namespace Prisma {
   export type ArticleTagUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    article?: ArticleUpdateOneRequiredWithoutArticleTagNestedInput
-    tag?: TagUpdateOneRequiredWithoutArticleTagNestedInput
+    article?: ArticleUpdateOneRequiredWithoutArticleTagsNestedInput
+    tag?: TagUpdateOneRequiredWithoutArticleTagsNestedInput
   }
 
   export type ArticleTagUncheckedUpdateInput = {
@@ -6723,32 +6723,32 @@ export namespace Prisma {
     deleteMany?: ArticleTagScalarWhereInput | ArticleTagScalarWhereInput[]
   }
 
-  export type ArticleCreateNestedOneWithoutArticleTagInput = {
-    create?: XOR<ArticleCreateWithoutArticleTagInput, ArticleUncheckedCreateWithoutArticleTagInput>
-    connectOrCreate?: ArticleCreateOrConnectWithoutArticleTagInput
+  export type ArticleCreateNestedOneWithoutArticleTagsInput = {
+    create?: XOR<ArticleCreateWithoutArticleTagsInput, ArticleUncheckedCreateWithoutArticleTagsInput>
+    connectOrCreate?: ArticleCreateOrConnectWithoutArticleTagsInput
     connect?: ArticleWhereUniqueInput
   }
 
-  export type TagCreateNestedOneWithoutArticleTagInput = {
-    create?: XOR<TagCreateWithoutArticleTagInput, TagUncheckedCreateWithoutArticleTagInput>
-    connectOrCreate?: TagCreateOrConnectWithoutArticleTagInput
+  export type TagCreateNestedOneWithoutArticleTagsInput = {
+    create?: XOR<TagCreateWithoutArticleTagsInput, TagUncheckedCreateWithoutArticleTagsInput>
+    connectOrCreate?: TagCreateOrConnectWithoutArticleTagsInput
     connect?: TagWhereUniqueInput
   }
 
-  export type ArticleUpdateOneRequiredWithoutArticleTagNestedInput = {
-    create?: XOR<ArticleCreateWithoutArticleTagInput, ArticleUncheckedCreateWithoutArticleTagInput>
-    connectOrCreate?: ArticleCreateOrConnectWithoutArticleTagInput
-    upsert?: ArticleUpsertWithoutArticleTagInput
+  export type ArticleUpdateOneRequiredWithoutArticleTagsNestedInput = {
+    create?: XOR<ArticleCreateWithoutArticleTagsInput, ArticleUncheckedCreateWithoutArticleTagsInput>
+    connectOrCreate?: ArticleCreateOrConnectWithoutArticleTagsInput
+    upsert?: ArticleUpsertWithoutArticleTagsInput
     connect?: ArticleWhereUniqueInput
-    update?: XOR<XOR<ArticleUpdateToOneWithWhereWithoutArticleTagInput, ArticleUpdateWithoutArticleTagInput>, ArticleUncheckedUpdateWithoutArticleTagInput>
+    update?: XOR<XOR<ArticleUpdateToOneWithWhereWithoutArticleTagsInput, ArticleUpdateWithoutArticleTagsInput>, ArticleUncheckedUpdateWithoutArticleTagsInput>
   }
 
-  export type TagUpdateOneRequiredWithoutArticleTagNestedInput = {
-    create?: XOR<TagCreateWithoutArticleTagInput, TagUncheckedCreateWithoutArticleTagInput>
-    connectOrCreate?: TagCreateOrConnectWithoutArticleTagInput
-    upsert?: TagUpsertWithoutArticleTagInput
+  export type TagUpdateOneRequiredWithoutArticleTagsNestedInput = {
+    create?: XOR<TagCreateWithoutArticleTagsInput, TagUncheckedCreateWithoutArticleTagsInput>
+    connectOrCreate?: TagCreateOrConnectWithoutArticleTagsInput
+    upsert?: TagUpsertWithoutArticleTagsInput
     connect?: TagWhereUniqueInput
-    update?: XOR<XOR<TagUpdateToOneWithWhereWithoutArticleTagInput, TagUpdateWithoutArticleTagInput>, TagUncheckedUpdateWithoutArticleTagInput>
+    update?: XOR<XOR<TagUpdateToOneWithWhereWithoutArticleTagsInput, TagUpdateWithoutArticleTagsInput>, TagUncheckedUpdateWithoutArticleTagsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -6850,7 +6850,7 @@ export namespace Prisma {
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ArticleTag?: ArticleTagCreateNestedManyWithoutArticleInput
+    articleTags?: ArticleTagCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleUncheckedCreateWithoutUserInput = {
@@ -6859,7 +6859,7 @@ export namespace Prisma {
     content: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    ArticleTag?: ArticleTagUncheckedCreateNestedManyWithoutArticleInput
+    articleTags?: ArticleTagUncheckedCreateNestedManyWithoutArticleInput
   }
 
   export type ArticleCreateOrConnectWithoutUserInput = {
@@ -6925,7 +6925,7 @@ export namespace Prisma {
   export type ArticleTagCreateWithoutArticleInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    tag: TagCreateNestedOneWithoutArticleTagInput
+    tag: TagCreateNestedOneWithoutArticleTagsInput
   }
 
   export type ArticleTagUncheckedCreateWithoutArticleInput = {
@@ -7003,7 +7003,7 @@ export namespace Prisma {
   export type ArticleTagCreateWithoutTagInput = {
     createdAt?: Date | string
     updatedAt?: Date | string
-    article: ArticleCreateNestedOneWithoutArticleTagInput
+    article: ArticleCreateNestedOneWithoutArticleTagsInput
   }
 
   export type ArticleTagUncheckedCreateWithoutTagInput = {
@@ -7039,7 +7039,7 @@ export namespace Prisma {
     data: XOR<ArticleTagUpdateManyMutationInput, ArticleTagUncheckedUpdateManyWithoutTagInput>
   }
 
-  export type ArticleCreateWithoutArticleTagInput = {
+  export type ArticleCreateWithoutArticleTagsInput = {
     title: string
     content: string
     createdAt?: Date | string
@@ -7047,7 +7047,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutArticlesInput
   }
 
-  export type ArticleUncheckedCreateWithoutArticleTagInput = {
+  export type ArticleUncheckedCreateWithoutArticleTagsInput = {
     id?: number
     title: string
     content: string
@@ -7056,41 +7056,41 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ArticleCreateOrConnectWithoutArticleTagInput = {
+  export type ArticleCreateOrConnectWithoutArticleTagsInput = {
     where: ArticleWhereUniqueInput
-    create: XOR<ArticleCreateWithoutArticleTagInput, ArticleUncheckedCreateWithoutArticleTagInput>
+    create: XOR<ArticleCreateWithoutArticleTagsInput, ArticleUncheckedCreateWithoutArticleTagsInput>
   }
 
-  export type TagCreateWithoutArticleTagInput = {
+  export type TagCreateWithoutArticleTagsInput = {
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type TagUncheckedCreateWithoutArticleTagInput = {
+  export type TagUncheckedCreateWithoutArticleTagsInput = {
     id?: number
     name: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type TagCreateOrConnectWithoutArticleTagInput = {
+  export type TagCreateOrConnectWithoutArticleTagsInput = {
     where: TagWhereUniqueInput
-    create: XOR<TagCreateWithoutArticleTagInput, TagUncheckedCreateWithoutArticleTagInput>
+    create: XOR<TagCreateWithoutArticleTagsInput, TagUncheckedCreateWithoutArticleTagsInput>
   }
 
-  export type ArticleUpsertWithoutArticleTagInput = {
-    update: XOR<ArticleUpdateWithoutArticleTagInput, ArticleUncheckedUpdateWithoutArticleTagInput>
-    create: XOR<ArticleCreateWithoutArticleTagInput, ArticleUncheckedCreateWithoutArticleTagInput>
+  export type ArticleUpsertWithoutArticleTagsInput = {
+    update: XOR<ArticleUpdateWithoutArticleTagsInput, ArticleUncheckedUpdateWithoutArticleTagsInput>
+    create: XOR<ArticleCreateWithoutArticleTagsInput, ArticleUncheckedCreateWithoutArticleTagsInput>
     where?: ArticleWhereInput
   }
 
-  export type ArticleUpdateToOneWithWhereWithoutArticleTagInput = {
+  export type ArticleUpdateToOneWithWhereWithoutArticleTagsInput = {
     where?: ArticleWhereInput
-    data: XOR<ArticleUpdateWithoutArticleTagInput, ArticleUncheckedUpdateWithoutArticleTagInput>
+    data: XOR<ArticleUpdateWithoutArticleTagsInput, ArticleUncheckedUpdateWithoutArticleTagsInput>
   }
 
-  export type ArticleUpdateWithoutArticleTagInput = {
+  export type ArticleUpdateWithoutArticleTagsInput = {
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7098,7 +7098,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutArticlesNestedInput
   }
 
-  export type ArticleUncheckedUpdateWithoutArticleTagInput = {
+  export type ArticleUncheckedUpdateWithoutArticleTagsInput = {
     id?: IntFieldUpdateOperationsInput | number
     title?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
@@ -7107,24 +7107,24 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TagUpsertWithoutArticleTagInput = {
-    update: XOR<TagUpdateWithoutArticleTagInput, TagUncheckedUpdateWithoutArticleTagInput>
-    create: XOR<TagCreateWithoutArticleTagInput, TagUncheckedCreateWithoutArticleTagInput>
+  export type TagUpsertWithoutArticleTagsInput = {
+    update: XOR<TagUpdateWithoutArticleTagsInput, TagUncheckedUpdateWithoutArticleTagsInput>
+    create: XOR<TagCreateWithoutArticleTagsInput, TagUncheckedCreateWithoutArticleTagsInput>
     where?: TagWhereInput
   }
 
-  export type TagUpdateToOneWithWhereWithoutArticleTagInput = {
+  export type TagUpdateToOneWithWhereWithoutArticleTagsInput = {
     where?: TagWhereInput
-    data: XOR<TagUpdateWithoutArticleTagInput, TagUncheckedUpdateWithoutArticleTagInput>
+    data: XOR<TagUpdateWithoutArticleTagsInput, TagUncheckedUpdateWithoutArticleTagsInput>
   }
 
-  export type TagUpdateWithoutArticleTagInput = {
+  export type TagUpdateWithoutArticleTagsInput = {
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TagUncheckedUpdateWithoutArticleTagInput = {
+  export type TagUncheckedUpdateWithoutArticleTagsInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7144,7 +7144,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ArticleTag?: ArticleTagUpdateManyWithoutArticleNestedInput
+    articleTags?: ArticleTagUpdateManyWithoutArticleNestedInput
   }
 
   export type ArticleUncheckedUpdateWithoutUserInput = {
@@ -7153,7 +7153,7 @@ export namespace Prisma {
     content?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    ArticleTag?: ArticleTagUncheckedUpdateManyWithoutArticleNestedInput
+    articleTags?: ArticleTagUncheckedUpdateManyWithoutArticleNestedInput
   }
 
   export type ArticleUncheckedUpdateManyWithoutUserInput = {
@@ -7174,7 +7174,7 @@ export namespace Prisma {
   export type ArticleTagUpdateWithoutArticleInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    tag?: TagUpdateOneRequiredWithoutArticleTagNestedInput
+    tag?: TagUpdateOneRequiredWithoutArticleTagsNestedInput
   }
 
   export type ArticleTagUncheckedUpdateWithoutArticleInput = {
@@ -7201,7 +7201,7 @@ export namespace Prisma {
   export type ArticleTagUpdateWithoutTagInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    article?: ArticleUpdateOneRequiredWithoutArticleTagNestedInput
+    article?: ArticleUpdateOneRequiredWithoutArticleTagsNestedInput
   }
 
   export type ArticleTagUncheckedUpdateWithoutTagInput = {

@@ -48,7 +48,7 @@ model Article {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  ArticleTag ArticleTag[]
+  articleTags ArticleTag[]
 
   @@index([userId])
   @@map("articles")
@@ -60,7 +60,7 @@ model Tag {
   name String @db.VarChar(30)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
-  ArticleTag ArticleTag[]
+  articleTags ArticleTag[]
   
   @@index([name])
   @@map("tags")

@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/api/handler";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
-import TagCreateWithoutArticleTagInputSchema from "@/prisma/generated/zod/inputTypeSchemas/TagCreateWithoutArticleTagInputSchema";
+import TagCreateWithoutArticleTagsInputSchema from "@/prisma/generated/zod/inputTypeSchemas/TagCreateWithoutArticleTagsInputSchema";
 import { paginationQuerySchema } from "@/schemas/requestSchema";
 import { NextRequest } from "next/server";
 
@@ -30,7 +30,7 @@ export const POST = withAuth(async (request: NextRequest) => {
   const res = await request.json();
   const bodyValidation = validateRequest(
     res,
-    TagCreateWithoutArticleTagInputSchema
+    TagCreateWithoutArticleTagsInputSchema
   );
 
   if (!bodyValidation.success) {

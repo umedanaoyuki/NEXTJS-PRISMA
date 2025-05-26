@@ -12,7 +12,7 @@ export const ArticleUpdateInputSchema: z.ZodType<Prisma.ArticleUpdateInput> = z.
   createdAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   updatedAt: z.union([ z.coerce.date(),z.lazy(() => DateTimeFieldUpdateOperationsInputSchema) ]).optional(),
   user: z.lazy(() => UserUpdateOneRequiredWithoutArticlesNestedInputSchema).optional(),
-  ArticleTag: z.lazy(() => ArticleTagUpdateManyWithoutArticleNestedInputSchema).optional()
+  articleTags: z.lazy(() => ArticleTagUpdateManyWithoutArticleNestedInputSchema).optional()
 }).strict();
 
 export default ArticleUpdateInputSchema;
