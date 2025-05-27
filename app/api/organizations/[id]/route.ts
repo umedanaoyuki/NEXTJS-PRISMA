@@ -1,7 +1,7 @@
 import { withAuth } from "@/lib/api/handler";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
-import ArticleUpdateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/ArticleUpdateInputSchema";
+import OrganizationUpdateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/OrganizationUpdateInputSchema";
 import { pathIdSchema } from "@/schemas/requestSchema";
 import { NextRequest } from "next/server";
 
@@ -35,7 +35,7 @@ export const GET = withAuth(
     });
 
     if (organization == null) {
-      return Response.json({ error: "記事が見つかりません" }, { status: 404 });
+      return Response.json({ error: "組織が存在しません" }, { status: 404 });
     }
 
     return Response.json(organization);
@@ -43,7 +43,7 @@ export const GET = withAuth(
 );
 
 export const PUT = withAuth(
-  async (request: NextRequest, _userId: number, pathParams?: PathParams) => {
+  async (request: NextRequest, userId: number, pathParams?: PathParams) => {
     const params = await pathParams?.params;
     const idValidation = validateRequest(params, pathIdSchema);
 
@@ -53,59 +53,36 @@ export const PUT = withAuth(
 
     const { id } = idValidation.data;
 
-    const { tagIds, ...res } = await request.json();
-    const bodyValidation = validateRequest(
-      {
-        ...res,
-        user: {
-          connect: {
-            id: _userId,
-          },
-        },
-        articleTags: {
-          create: tagIds.map((tagId: number) => ({
-            tagId,
-          })),
-        },
-      },
-      ArticleUpdateInputSchema
-    );
+    const res = await request.json();
+    const bodyValidation = validateRequest(res, OrganizationUpdateInputSchema);
 
     if (!bodyValidation.success) {
       return bodyValidation.error;
     }
 
-    const article = await prisma.article.findUnique({
+    const organization = await prisma.userOrganization.findFirst({
       where: {
-        id,
+        userId,
+        organizationId: id,
+        role: "ADMIN",
       },
     });
 
-    if (article == null) {
-      return Response.json({ error: "記事が見つかりません" }, { status: 404 });
+    if (organization == null) {
+      return Response.json(
+        { error: "組織が存在しない、もしくは権限がありません" },
+        { status: 404 }
+      );
     }
 
-    console.log({ article });
-
-    if (article.userId !== _userId) {
-      return Response.json({ error: "権限がありません" }, { status: 403 });
-    }
-
-    const updateArticle = await prisma.$transaction(async (tx) => {
-      await tx.articleTag.deleteMany({
-        where: {
-          articleId: id,
-        },
-      });
-      return await tx.article.update({
-        where: {
-          id,
-        },
-        data: bodyValidation.data,
-      });
+    const updateOrganization = await prisma.organization.update({
+      where: {
+        id,
+      },
+      data: bodyValidation.data,
     });
 
-    return Response.json(updateArticle);
+    return Response.json(updateOrganization);
   }
 );
 
