@@ -87,7 +87,7 @@ export const PUT = withAuth(
 );
 
 export const DELETE = withAuth(
-  async (request: NextRequest, _userId: number, pathParams?: PathParams) => {
+  async (request: NextRequest, userId: number, pathParams?: PathParams) => {
     const params = await pathParams?.params;
     const idValidation = validateRequest(params, pathIdSchema);
 
@@ -97,26 +97,27 @@ export const DELETE = withAuth(
 
     const { id } = idValidation.data;
 
-    const article = await prisma.article.findUnique({
+    const organization = await prisma.userOrganization.findFirst({
+      where: {
+        userId,
+        organizationId: id,
+        role: "ADMIN",
+      },
+    });
+
+    if (organization == null) {
+      return Response.json(
+        { error: "組織が存在しない、もしくは権限がありません" },
+        { status: 404 }
+      );
+    }
+
+    await prisma.organization.delete({
       where: {
         id,
       },
     });
 
-    if (article == null) {
-      return Response.json({ error: "記事が見つかりません" }, { status: 404 });
-    }
-
-    if (article.userId !== _userId) {
-      return Response.json({ error: "権限がありません" }, { status: 403 });
-    }
-
-    await prisma.article.delete({
-      where: {
-        id,
-      },
-    });
-
-    return Response.json({ message: "記事を削除しました" });
+    return Response.json({ message: "組織を削除しました" });
   }
 );
