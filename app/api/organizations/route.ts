@@ -1,7 +1,6 @@
 import { withAuth } from "@/lib/api/handler";
 import { validateRequest } from "@/lib/api/validation";
 import prisma from "@/lib/prisma";
-import ArticleCreateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/ArticleCreateInputSchema";
 import OrganizationCreateInputSchema from "@/prisma/generated/zod/inputTypeSchemas/OrganizationCreateInputSchema";
 import { paginationQuerySchema } from "@/schemas/requestSchema";
 import { NextRequest } from "next/server";
@@ -17,27 +16,14 @@ export const GET = withAuth(async (request: NextRequest) => {
 
   const { take, skip } = queryValidation.data;
 
-  const articles = await prisma.article.findMany({
-    include: {
-      user: {
-        select: {
-          id: true,
-          username: true,
-        },
-      },
-      articleTags: {
-        include: {
-          tag: true,
-        },
-      },
-    },
+  const organizations = await prisma.organization.findMany({
     take,
     skip,
     orderBy: {
       createdAt: "desc",
     },
   });
-  return Response.json(articles);
+  return Response.json(organizations);
 });
 
 export const POST = withAuth(async (request: NextRequest, userId: number) => {
